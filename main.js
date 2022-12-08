@@ -1,1 +1,2 @@
-module.exports = require("eslint4b");
+import Linter from "eslint4b";
+export default Linter;

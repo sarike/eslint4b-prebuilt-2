@@ -1,4 +1,9 @@
-module.exports = {
+import nodePolyfill from "rollup-plugin-polyfill-node";
+import commonjs from "@rollup/plugin-commonjs";
+import json from "@rollup/plugin-json";
+import resolve from "@rollup/plugin-node-resolve";
+
+export default {
   input: "./main.js",
   output: [
     {
@@ -12,15 +17,11 @@ module.exports = {
     },
   ],
   plugins: [
-    require("rollup-plugin-node-builtins")(),
-    require("rollup-plugin-commonjs")(),
-    require("rollup-plugin-json")(),
-    require("rollup-plugin-babel")(),
-    require("rollup-plugin-node-resolve")({
-      mainFields: ["browser", "module", "main"],
+    resolve(),
+    commonjs({
+      requireReturnsDefault: "preferred",
     }),
+    nodePolyfill(),
+    json(),
   ],
-  external(id) {
-    return false;
-  },
 };
